@@ -58,13 +58,13 @@ print(prices.fillna(0))
 
 
 # # Monthly trend analysis
-# prices['Month'] = prices.index.month
-# monthly_avg = prices.groupby('Month').mean()
-# print(monthly_avg)
-# monthly_avg.plot(kind='bar', figsize=(10, 6))
-# plt.title("Average Monthly Prices")
-# plt.ylabel("Average Price")
-# plt.show()
+prices['Month'] = prices.index.month
+monthly_avg = prices.groupby('Month').mean()
+print(monthly_avg)
+monthly_avg.plot(kind='bar', figsize=(10, 6))
+plt.title("Average Monthly Prices")
+plt.ylabel("Average Price")
+plt.show()
 
 # Identifying dips
 # dip_threshold = 0.2  # Define a 20% dip
@@ -79,11 +79,11 @@ print(prices.fillna(0))
 # plt.show()
 
 # Calculate spreads
-spread = prices['Bitcoin'] - prices['Ethereum']
-plt.figure(figsize=(10, 6))
-plt.plot(spread, label='Spread (BTC - ETH)')
-plt.axhline(spread.mean(), color='red', linestyle='--', label='Mean Spread')
-plt.legend()
-plt.title("Bitcoin-Ethereum Spread")
-plt.show()
-
+# spread = prices['Bitcoin'] - prices['Ethereum']
+# plt.figure(figsize=(10, 6))
+# plt.plot(spread, label='Spread (BTC - ETH)')
+# plt.axhline(spread.mean(), color='red', linestyle='--', label='Mean Spread')
+# plt.legend()
+# plt.title("Bitcoin-Ethereum Spread")
+# plt.show()
+#
