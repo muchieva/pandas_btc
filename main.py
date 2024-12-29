@@ -3,36 +3,23 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from get_crypto import get_crypto
+#
 os.environ['TCL_LIBRARY'] = r'C:\Users\rasa7\AppData\Local\Programs\Python\Python313\tcl\tcl8.6'
 
-btc = pd.read_csv('files/bitcoin.csv', index_col=0, parse_dates=True)
-print(btc)
-bnb = pd.read_csv('files/BNB.csv', index_col=0, parse_dates=True)
-print(bnb)
-eth = pd.read_csv('files/ethereum.csv', index_col=0, parse_dates=True)
-print(eth)
-
-# prices = pd.DataFrame(index=btc.index)
-# prices.head()
-# prices['Bitcoin'] = btc['Close']
-# prices['BNB'] = bnb['Close']
-# prices['XRP'] = xrp['Close']
+# prices = pd.concat(
+#     [btc['Close'].rename('Bitcoin'),
+#      bnb['Close'].rename('BNB'),
+#      eth['Close'].rename('Ethereum')],
+#     axis=1, join='outer'
+# )
 # prices.ffill()
 # print(prices.fillna(0))
-
-prices = pd.concat(
-    [btc['Close'].rename('Bitcoin'),
-     bnb['Close'].rename('BNB'),
-     eth['Close'].rename('Ethereum')],
-    axis=1, join='outer'
-)
-prices.ffill()
-print(prices.fillna(0))
-# prices.plot()
-# prices.loc["2022-05-01":"2022-08-20"].plot(kind= 'hist')
-# plt.show()
+# # prices.plot()
+# # prices.loc["2022-05-01":"2022-08-20"].plot(kind= 'hist')
+# # plt.show()
+# #
 #
-
 # # Correlation matrix
 # correlation_matrix = prices.corr()
 # print(correlation_matrix)
@@ -44,13 +31,9 @@ print(prices.fillna(0))
 # # Calculate daily returns
 # returns = prices.pct_change()
 # print(returns.fillna(0))
-#
-# # Visualize volatility
 # returns.plot(figsize=(10, 6), title="Daily Returns")
 # plt.ylabel("Percentage Change")
 # plt.show()
-#
-# # Rolling volatility
 # volatility = returns.rolling(window=30).std()
 # volatility.plot(figsize=(10, 6), title="30-Day Rolling Volatility")
 # plt.ylabel("Volatility")
@@ -58,13 +41,13 @@ print(prices.fillna(0))
 
 
 # # Monthly trend analysis
-prices['Month'] = prices.index.month
-monthly_avg = prices.groupby('Month').mean()
-print(monthly_avg)
-monthly_avg.plot(kind='bar', figsize=(10, 6))
-plt.title("Average Monthly Prices")
-plt.ylabel("Average Price")
-plt.show()
+# prices['Month'] = prices.index.month
+# monthly_avg = prices.groupby('Month').mean()
+# print(monthly_avg)
+# monthly_avg.plot(kind='bar', figsize=(10, 6))
+# plt.title("Average Monthly Prices")
+# plt.ylabel("Average Price")
+# plt.show()
 
 # Identifying dips
 # dip_threshold = 0.2  # Define a 20% dip
@@ -87,3 +70,16 @@ plt.show()
 # plt.title("Bitcoin-Ethereum Spread")
 # plt.show()
 #
+
+
+df = get_crypto([ 'Ethereum', 'Aave', 'ApeCoin'])
+correlation_matrix = df.corr()
+print(correlation_matrix)
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
+plt.title("Correlation Matrix")
+plt.show()
+
+
+print(df)
+df.plot()
+plt.show()
